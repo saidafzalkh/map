@@ -34,8 +34,8 @@
     map = L.map(MAP_ID).setView(COORDINATES, ZOOM);
     markers = L.markerClusterGroup();
 
-    fetchJSON("geojson/uzbekistan.geojson").then(function (geojson) {
-      // L.geoJSON(geojson).addTo(map);
+    fetchJSON("geojson/uzbekistan_regional.geojson").then(function (geojson) {
+      L.geoJSON(geojson).addTo(map);
     });
 
     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
