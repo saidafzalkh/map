@@ -8,11 +8,15 @@
     const uzbekistanMaxLongitude = 74.0; // Degrees East
     const uzbekistanMinLatitude = 37.0; // Degrees North
     const uzbekistanMaxLatitude = 46.0; // Degrees North
-  
+
     // Generate random latitude and longitude within Uzbekistan boundaries
-    const randomLongitude = Math.random() * (uzbekistanMaxLongitude - uzbekistanMinLongitude) + uzbekistanMinLongitude;
-    const randomLatitude = Math.random() * (uzbekistanMaxLatitude - uzbekistanMinLatitude) + uzbekistanMinLatitude;
-  
+    const randomLongitude =
+      Math.random() * (uzbekistanMaxLongitude - uzbekistanMinLongitude) +
+      uzbekistanMinLongitude;
+    const randomLatitude =
+      Math.random() * (uzbekistanMaxLatitude - uzbekistanMinLatitude) +
+      uzbekistanMinLatitude;
+
     return [randomLongitude, randomLatitude];
   }
   // ------------------------------------------------
@@ -49,7 +53,7 @@
     fetchJSON("data/votes.json").then(function (json) {
       json.forEach(function (element) {
         markers.addLayer(
-          L.marker(generateRandomPointInUzbekistan())
+          L.marker(generateRandomPointInUzbekistan()).bindPopup(element.MANZIL)
         );
       });
       map.addLayer(markers);
@@ -59,4 +63,3 @@
   initMap();
   populateDots();
 })(this);
-
