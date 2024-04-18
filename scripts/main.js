@@ -1,6 +1,22 @@
 (function (global) {
   "use strict";
 
+  // ------------------------------------------------------------------
+  function generateRandomPointInUzbekistan() {
+    // Uzbekistan longitude and latitude boundaries
+    const uzbekistanMinLongitude = 56.0; // Degrees East
+    const uzbekistanMaxLongitude = 74.0; // Degrees East
+    const uzbekistanMinLatitude = 37.0; // Degrees North
+    const uzbekistanMaxLatitude = 46.0; // Degrees North
+  
+    // Generate random latitude and longitude within Uzbekistan boundaries
+    const randomLongitude = Math.random() * (uzbekistanMaxLongitude - uzbekistanMinLongitude) + uzbekistanMinLongitude;
+    const randomLatitude = Math.random() * (uzbekistanMaxLatitude - uzbekistanMinLatitude) + uzbekistanMinLatitude;
+  
+    return [randomLongitude, randomLatitude];
+  }
+  // ------------------------------------------------
+
   var ZOOM = 6;
   var COORDINATES = [41.381166, 64.5735819];
   var MAP_ID = "map";
@@ -16,7 +32,11 @@
 
   function initMap() {
     map = L.map(MAP_ID).setView(COORDINATES, ZOOM);
-    markers = L.markerClusterGroup()
+    markers = L.markerClusterGroup();
+
+    fetchJSON("geojson/uzbekistan.geojson").then(function (geojson) {
+      // L.geoJSON(geojson).addTo(map);
+    });
 
     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 40,
@@ -28,8 +48,10 @@
   function populateDots() {
     fetchJSON("data/votes.json").then(function (json) {
       json.forEach(function (element) {
-        markers.addLayer(L.marker([40.422458, 71.582819]));
-      })
+        markers.addLayer(
+          L.marker(generateRandomPointInUzbekistan())
+        );
+      });
       map.addLayer(markers);
     });
   }
@@ -38,14 +60,3 @@
   populateDots();
 })(this);
 
-// var map = L.map("map").setView([41.381166, 64.5735819], 6);
-
-// L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-//   maxZoom: 19,
-//   attribution:
-//     '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-// }).addTo(map);
-
-// var marker = L.marker([40.422458, 71.582819]).addTo(map);
-
-// marker.bindPopup("<b>My home is here :)</b>");
