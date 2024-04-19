@@ -1,15 +1,15 @@
 (function (global) {
   "use strict";
 
-  var ZOOM = 6;
-  var DEFAULT_COORDINATES = [41.381166, 64.5735819];
-  var DATA_API = "data/coordinates.json";
+  const ZOOM = 6;
+  const DEFAULT_COORDINATES = [41.381166, 64.5735819];
+  const DATA_API = "data/coordinates.json";
 
-  var MAP_ID = "map";
-  var MAP_API = "https://tile.openstreetmap.org/{z}/{x}/{y}.png";
+  const MAP_ID = "map";
+  const MAP_API = "https://tile.openstreetmap.org/{z}/{x}/{y}.png";
 
-  var map;
-  var markers;
+  let map;
+  let markers;
 
   function fetchJSON(url) {
     return fetch(url).then(function (response) {
@@ -32,7 +32,7 @@
     }).addTo(map);
   }
 
-  function populateDots() {
+  function populatePointsOnMap() {
     fetchJSON(DATA_API).then(function (json) {
       json.forEach(function (element) {
         if (element.coordinate) {
@@ -51,5 +51,5 @@
   }
 
   initMap();
-  populateDots();
+  populatePointsOnMap();
 })(this);
