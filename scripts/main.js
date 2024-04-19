@@ -42,7 +42,7 @@
             .map((ll) => Number(ll));
 
           markers.addLayer(
-            L.marker(coordinate).bindPopup(element.zona_id || "")
+            L.marker(coordinate).bindPopup(element.zona_id + " - sonli saylov uchastkasi")
           );
         }
       });
